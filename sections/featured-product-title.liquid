@@ -1,0 +1,100 @@
+{% assign mainProduct = all_products['fitra-activity-band']%}
+
+<div class="featured-product">
+  <h1>{{ mainProduct.title }}</h1>
+
+  <div class="product-images">
+    {% for image in mainProduct.images %}
+      <img src="{{ image | img_url: 'large' }}" alt="{{ mainProduct.title }}">
+    {% endfor %}
+  </div>
+
+  <div class="product-details">
+    <div class="headline">
+      <h2>Hassle free fitness tracking</h2>
+      <h3>Information</h3>
+    </div>
+    <div class="product-description">
+      {{ mainProduct.description }}
+    </div>
+
+
+<div class="details">
+  <ul>
+    <li>List iem 1</li>
+    <li>List iem 2</li>
+  </ul>
+</div>
+
+
+
+
+
+
+
+    {% form 'product', mainProduct %}
+      <div class="price">
+        {{ mainProduct.price | money }}
+      </div>
+      
+      <select name="id" id="ProductSelect">
+        {% for variant in mainProduct.variants %}
+          <option value="{{ variant.id }}">
+            {{ variant.title }} - {{ variant.price | money }}
+          </option>
+        {% endfor %}
+      </select>
+
+      <div class="quantity">
+        <label for="Quantity">Quantity</label>
+        <input type="number" id="Quantity" name="quantity" value="1" min="1">
+      </div>
+
+      <button type="submit" name="add" class="add-to-cart">
+        Add to Cart
+      </button>
+    {% endform %}
+  </div>
+</div>
+
+
+
+
+
+{% schema %}
+{
+  "name": "Featured Product Title",
+  "settings": [
+    {
+      "type": "text",
+      "id": "product_handle",
+      "label": "Product Handle",
+      "default": "fitra-activity-band"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Product Title"
+    }
+  ]
+}
+{% endschema %} 
