@@ -11,8 +11,8 @@
 
   <div class="product-details">
     <div class="headline">
-      <h2>Hassle free fitness tracking</h2>
-      <h3>Information</h3>
+      <h2>{{ section.settings.main_heading }}</h2>
+      <h3>{{ section.settings.sub_heading }}</h3>
     </div>
     <div class="product-description">
       {{ mainProduct.description }}
@@ -21,8 +21,11 @@
 
 <div class="details">
   <ul>
-    <li>List iem 1</li>
-    <li>List iem 2</li>
+    {% for block in section.blocks %}
+      {% if block.type == 'list_item' %}
+        <li>{{ block.settings.list_text }}</li>
+      {% endif %}
+    {% endfor %}
   </ul>
 </div>
 
@@ -47,7 +50,7 @@
       </select>
 
       <button type="submit" name="add" class="add-to-cart">
-        Add to Cart - {{ mainProduct.price | money_without_trailing_zeros }}
+        {{ section.settings.add_to_cart_text }} - {{ mainProduct.price | money_without_trailing_zeros }}
       </button>
     {% endform %}
   </div>
@@ -59,40 +62,48 @@
 
 {% schema %}
 {
-  "name": "Featured Product Title",
+  "name": "Featured Product",
   "settings": [
     {
       "type": "text",
-      "id": "product_handle",
-      "label": "Product Handle",
-      "default": "fitra-activity-band"
+      "id": "main_heading",
+      "label": "Main Heading",
+      "default": "Hassle free fitness tracking"
+    },
+    {
+      "type": "text",
+      "id": "sub_heading",
+      "label": "Sub Heading",
+      "default": "Information"
     },
     {
       "type": "text",
       "id": "color_label",
       "label": "Color Selector Label",
       "default": "Color"
+    },
+    {
+      "type": "text",
+      "id": "add_to_cart_text",
+      "label": "Add to Cart Button Text",
+      "default": "Add to Cart"
     }
   ],
   "blocks": [
     {
-      "type": "button",
-      "name": "Button",
+      "type": "list_item",
+      "name": "List Item",
       "settings": [
         {
           "type": "text",
-          "id": "button_label",
-          "label": "Button Label",
-          "default": "Shop Now"
-        },
-        {
-          "type": "url",
-          "id": "button_link",
-          "label": "Button Link"
+          "id": "list_text",
+          "label": "List Item Text",
+          "default": "Enter list item text"
         }
       ]
     }
   ],
+  "max_blocks": 10,
   "presets": [
     {
       "name": "Featured Product Title"
