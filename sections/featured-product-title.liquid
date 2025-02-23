@@ -37,21 +37,17 @@
         {{ mainProduct.price | money }}
       </div>
       
+      
+      <label for="ProductSelect">{{ section.settings.color_label }}</label>
       <select name="id" id="ProductSelect">
-        {% for variant in mainProduct.variants %}
-          <option value="{{ variant.id }}">
-            {{ variant.title }} - {{ variant.price | money }}
-          </option>
-        {% endfor %}
+        <option value="{{ mainProduct.variants[0].id }}">Orange</option>
+        <option value="{{ mainProduct.variants[1].id }}">White</option>
+        <option value="{{ mainProduct.variants[2].id }}">Gray</option>
+        <option value="{{ mainProduct.variants[3].id }}">Black</option>
       </select>
 
-      <div class="quantity">
-        <label for="Quantity">Quantity</label>
-        <input type="number" id="Quantity" name="quantity" value="1" min="1">
-      </div>
-
       <button type="submit" name="add" class="add-to-cart">
-        Add to Cart
+        Add to Cart - {{ mainProduct.price | money_without_trailing_zeros }}
       </button>
     {% endform %}
   </div>
@@ -70,6 +66,12 @@
       "id": "product_handle",
       "label": "Product Handle",
       "default": "fitra-activity-band"
+    },
+    {
+      "type": "text",
+      "id": "color_label",
+      "label": "Color Selector Label",
+      "default": "Color"
     }
   ],
   "blocks": [
